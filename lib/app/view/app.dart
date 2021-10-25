@@ -17,7 +17,7 @@ class App extends StatelessWidget {
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
       ],
-      home: const LoginPage(),
+      home: LoginPage(),
     );
   }
 }

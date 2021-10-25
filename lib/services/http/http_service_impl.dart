@@ -16,7 +16,7 @@ class DioHttpService extends BaseHttpService {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (RequestOptions options, handler) async {
-          final token = await _token;
+          final token = _token;
           options.headers.addAll(
             <String, String>{'Authorization': token ?? ''},
           );
@@ -32,9 +32,9 @@ class DioHttpService extends BaseHttpService {
   final Dio dio;
   final StorageService storageService;
 
-  Future<String?> get _token async {
+  String? get _token {
     try {
-      final response = await storageService.getToken();
+      final response = storageService.getToken();
       return response;
     } catch (e) {
       debugPrint(e.toString());
@@ -44,7 +44,6 @@ class DioHttpService extends BaseHttpService {
   @override
   Future<dynamic> delete({
     required BaseHttpRequest request,
-    required Function(Map<String, dynamic> data) converter,
   }) {
     throw UnimplementedError();
   }
@@ -52,7 +51,6 @@ class DioHttpService extends BaseHttpService {
   @override
   Future<dynamic> get({
     required BaseHttpRequest request,
-    required Function(Map<String, dynamic> data) converter,
   }) async {
     final map = request.toMap();
     final response = await dio.get<String>(
@@ -66,7 +64,6 @@ class DioHttpService extends BaseHttpService {
   @override
   Future<dynamic> post({
     required BaseHttpRequest request,
-    required Function(Map<String, dynamic> data) converter,
   }) async {
     final map = request.toMap();
     final response = await dio.post<String>(
