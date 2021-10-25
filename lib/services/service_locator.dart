@@ -13,9 +13,10 @@ import 'package:tv_shows/services/storage/storage_service_impl.dart';
 
 GetIt serviceLocator = GetIt.instance;
 
-void setUpLocator() {
-  serviceLocator.registerLazySingletonAsync<SharedPreferences>(
-    () async => SharedPreferences.getInstance(),
+Future<void> setUpLocator() async {
+  final sharedPreferences = await SharedPreferences.getInstance();
+  serviceLocator.registerLazySingleton<SharedPreferences>(
+    () => sharedPreferences,
   );
   serviceLocator.registerLazySingleton<StorageService>(
     () => StorageServiceImpl(
