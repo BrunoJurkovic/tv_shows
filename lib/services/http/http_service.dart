@@ -1,5 +1,20 @@
-abstract class BaseHttpRequest {
-  const BaseHttpRequest({
+abstract class BaseHttpPostRequest {
+  const BaseHttpPostRequest({
+    required this.endpoint,
+  });
+  final String endpoint;
+  Map<String, dynamic> toMap();
+}
+
+abstract class BaseHttpGetRequest {
+  const BaseHttpGetRequest({
+    required this.endpoint,
+  });
+  final String endpoint;
+}
+
+abstract class BaseHttpDeleteRequest {
+  const BaseHttpDeleteRequest({
     required this.endpoint,
   });
   final String endpoint;
@@ -8,12 +23,12 @@ abstract class BaseHttpRequest {
 
 abstract class BaseHttpService {
   Future get({
-    required BaseHttpRequest request,
+    required BaseHttpGetRequest request,
   });
   Future post({
-    required BaseHttpRequest request,
+    required BaseHttpPostRequest request,
   });
   Future delete({
-    required BaseHttpRequest request,
+    required BaseHttpDeleteRequest request,
   });
 }

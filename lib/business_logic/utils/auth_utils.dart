@@ -13,9 +13,9 @@ class LoginResponse {
   final String token;
 }
 
-class LoginRequest extends BaseHttpRequest {
+class LoginRequest extends BaseHttpPostRequest {
   const LoginRequest(this.username, this.password)
-      : super(endpoint: '/users/sessions');
+      : super(endpoint: '/api/users/sessions');
 
   final String username, password;
 

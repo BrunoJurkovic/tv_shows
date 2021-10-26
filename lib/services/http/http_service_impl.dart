@@ -6,7 +6,7 @@ import 'package:tv_shows/services/http/http_service.dart';
 import 'package:tv_shows/services/storage/storage_service.dart';
 
 // ignore: constant_identifier_names
-const BASE_URL = 'https://api.infinum.academy/api/';
+const BASE_URL = 'https://api.infinum.academy/';
 
 class DioHttpService extends BaseHttpService {
   DioHttpService(this.dio, this.storageService, {String baseUrl = BASE_URL}) {
@@ -48,30 +48,28 @@ class DioHttpService extends BaseHttpService {
 
   @override
   Future<dynamic> delete({
-    required BaseHttpRequest request,
+    required BaseHttpDeleteRequest request,
   }) {
     throw UnimplementedError();
   }
 
   @override
   Future<dynamic> get({
-    required BaseHttpRequest request,
+    required BaseHttpGetRequest request,
   }) async {
-    final map = request.toMap();
     final options = Options(
       contentType: Headers.jsonContentType,
     );
     final response = await dio.get<dynamic>(
       request.endpoint,
-      queryParameters: map,
       options: options,
     );
-    return jsonDecode(response.data! as String);
+    return response.data;
   }
 
   @override
   Future<dynamic> post({
-    required BaseHttpRequest request,
+    required BaseHttpPostRequest request,
   }) async {
     final map = request.toMap();
     final options = Options(

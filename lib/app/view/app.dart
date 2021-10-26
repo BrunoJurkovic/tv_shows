@@ -39,7 +39,7 @@ class _AppState extends State<App> {
 
   Widget getInitialScreen() {
     if (_loginViewModel.loginStatus == LoginStatus.authenticated) {
-      return ShowsPage();
+      return const ShowsPage();
     }
     return const LoginPage();
   }
