@@ -6,15 +6,13 @@ class ShowsViewModel extends ChangeNotifier {
   ShowsViewModel({required this.showsService});
 
   final ShowsService showsService;
-  final List<Show> _shows = [];
 
-  List<Show> get shows => _shows;
-
-  Future<void> fetchShows() async {
+  Future<List<Show>> fetchShows() async {
     final response = await showsService.getShows();
+    final output = <Show>[];
     for (final show in response) {
-      _shows.add(show);
+      output.add(show);
     }
-    notifyListeners();
+    return output;
   }
 }
