@@ -13,13 +13,19 @@ class AuthenticationServiceImpl implements AuthenticationService {
   final BaseHttpService httpService;
 
   @override
-  Future<bool> login(String username, String password) async {
+  Future<bool> login(String username, String password,
+      {bool? rememberLogin}) async {
     try {
       final response = await httpService.post(
           request: LoginRequest(username, password)) as Map<String, dynamic>;
       final result = LoginResponse.fromMap(response);
 
       await storageService.updateToken(result.token);
+      if (rememberLogin ?? false) {
+        await storageService.updateRememberUser(true);
+      } else {
+        await storageService.updateRememberUser(false);
+      }
       return true;
     } catch (e) {
       return false;
@@ -29,5 +35,6 @@ class AuthenticationServiceImpl implements AuthenticationService {
   @override
   Future logout() async {
     await storageService.updateToken('');
+    await storageService.updateRememberUser(false);
   }
 }

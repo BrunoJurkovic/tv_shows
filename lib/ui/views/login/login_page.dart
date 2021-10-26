@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tv_shows/business_logic/viewmodels/login_viewmodel.dart';
 import 'package:tv_shows/services/service_locator.dart';
@@ -8,10 +7,16 @@ import 'package:tv_shows/ui/widgets/login/login_button.dart';
 import 'package:tv_shows/ui/widgets/login/password_field.dart';
 import 'package:tv_shows/ui/widgets/login/remember_checkbox.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormBuilderState>();
+
   final _loginViewModel = serviceLocator<LoginViewModel>();
 
   @override
@@ -59,6 +64,7 @@ class LoginPage extends StatelessWidget {
       await _loginViewModel.login(
         val['email'] as String,
         val['password'] as String,
+        rememberLogin: val['remember'] as bool,
       );
     } else {
       debugPrint('error');

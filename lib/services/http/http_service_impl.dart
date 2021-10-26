@@ -27,7 +27,9 @@ class DioHttpService extends BaseHttpService {
         onResponse: (Response response, handler) {
           return handler.next(response);
         },
-        onError: (DioError error, handler) async {},
+        onError: (DioError error, handler) async {
+          return handler.next(error);
+        },
       ),
     );
   }
@@ -75,12 +77,17 @@ class DioHttpService extends BaseHttpService {
     final options = Options(
       contentType: Headers.jsonContentType,
     );
-    final response = await dio.post<String>(
-      request.endpoint,
-      data: jsonEncode(map),
-      options: options,
-    );
-
-    return jsonDecode(response.data!);
+    try {
+      final response = await dio.post<String>(
+        request.endpoint,
+        data: jsonEncode(map),
+        options: options,
+      );
+      return jsonDecode(response.data!);
+    } on DioError {
+      throw Exception('Invalid Password');
+    } catch (e) {
+      throw Exception();
+    }
   }
 }

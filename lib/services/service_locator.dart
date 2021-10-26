@@ -41,6 +41,7 @@ Future<void> setUpLocator() async {
   serviceLocator.registerLazySingleton<LoginViewModel>(
     () => LoginViewModel(
       authenticationService: serviceLocator(),
+      storageService: serviceLocator(),
     ),
   );
 }
