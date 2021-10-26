@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:tv_shows/business_logic/models/user.dart';
 import 'package:tv_shows/services/auth/auth.dart';
 import 'package:tv_shows/services/storage/storage_service.dart';
 
@@ -38,7 +37,6 @@ class LoginViewModel extends ChangeNotifier {
       );
       if (response) {
         _loginStatus = LoginStatus.authenticated;
-        print(_loginStatus);
         notifyListeners();
       } else {
         throw Exception();

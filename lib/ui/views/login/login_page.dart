@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tv_shows/business_logic/viewmodels/login_viewmodel.dart';
 import 'package:tv_shows/services/service_locator.dart';
+import 'package:tv_shows/ui/views/shows/shows_page.dart';
 import 'package:tv_shows/ui/widgets/login/email_field.dart';
 import 'package:tv_shows/ui/widgets/login/login_button.dart';
 import 'package:tv_shows/ui/widgets/login/password_field.dart';
@@ -65,6 +66,14 @@ class _LoginPageState extends State<LoginPage> {
         val['email'] as String,
         val['password'] as String,
         rememberLogin: val['remember'] as bool,
+      );
+      // ignore: use_build_context_synchronously
+      await Navigator.of(context).pushReplacement(
+        MaterialPageRoute<LoginPage>(
+          builder: (_) {
+            return ShowsPage();
+          },
+        ),
       );
     } else {
       debugPrint('error');
