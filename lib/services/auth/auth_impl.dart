@@ -1,4 +1,3 @@
-import 'package:tv_shows/business_logic/models/user.dart';
 import 'package:tv_shows/business_logic/utils/auth_utils.dart';
 import 'package:tv_shows/services/auth/auth.dart';
 import 'package:tv_shows/services/http/http_service.dart';
@@ -14,17 +13,16 @@ class AuthenticationServiceImpl implements AuthenticationService {
   final BaseHttpService httpService;
 
   @override
-  Future<User> login(String username, String password) async {
+  Future<bool> login(String username, String password) async {
     try {
       final response = await httpService.post(
           request: LoginRequest(username, password)) as Map<String, dynamic>;
       final result = LoginResponse.fromMap(response);
-      final user = User(email: username, password: password);
 
       await storageService.updateToken(result.token);
-      return user;
+      return true;
     } catch (e) {
-      throw Exception();
+      return false;
     }
   }
 

@@ -1,4 +1,4 @@
 abstract class AuthenticationService {
-  Future<void> login(String username, String password);
+  Future<bool> login(String username, String password);
   Future logout();
 }
