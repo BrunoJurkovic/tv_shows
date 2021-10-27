@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
       await Navigator.of(context).pushReplacement(
         MaterialPageRoute<LoginPage>(
           builder: (_) {
-            return ShowsPage();
+            return const ShowsPage();
           },
         ),
       );

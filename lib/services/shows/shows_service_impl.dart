@@ -20,7 +20,6 @@ class ShowsServiceImpl implements ShowsService {
     for (final show in result.data) {
       output.add(Show.fromMap(show as Map<String, dynamic>));
     }
-    print(output);
     return output;
   }
 }
