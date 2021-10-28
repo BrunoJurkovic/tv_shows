@@ -95,6 +95,7 @@ class EpisodeViewBody extends StatelessWidget {
           horizontal: 25,
         ),
         child: ListView.builder(
+          padding: EdgeInsets.zero,
           itemCount: showDetails.episodes.length,
           itemBuilder: (ctx, i) {
             final episode = showDetails.episodes[i];
