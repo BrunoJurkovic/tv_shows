@@ -11,4 +11,14 @@ class CommentViewModel extends ChangeNotifier {
     final response = await commentService.getComments(id);
     return response;
   }
+
+  Future<bool> postComment(String text, String id) async {
+    try {
+      await commentService.postComment(text: text, id: id);
+      await fetchComments(id);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

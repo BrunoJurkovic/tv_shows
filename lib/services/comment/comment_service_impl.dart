@@ -20,4 +20,15 @@ class CommentServiceImpl implements CommentService {
     }
     return output;
   }
+
+  @override
+  Future<void> postComment({required String text, required String id}) async {
+    try {
+      await httpService.post(
+        request: PostCommentRequest(text, id),
+      ) as Map<String, dynamic>;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

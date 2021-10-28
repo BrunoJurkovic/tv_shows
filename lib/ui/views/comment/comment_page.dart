@@ -7,12 +7,18 @@ import 'package:tv_shows/business_logic/viewmodels/comment_viewmodel.dart';
 import 'package:tv_shows/services/service_locator.dart';
 import 'package:tv_shows/ui/widgets/show_detail/episode_app_bar.dart';
 
-class CommentPage extends StatelessWidget {
+class CommentPage extends StatefulWidget {
   CommentPage({Key? key, required this.episodeId}) : super(key: key);
 
   final String episodeId;
 
+  @override
+  State<CommentPage> createState() => _CommentPageState();
+}
+
+class _CommentPageState extends State<CommentPage> {
   final _key = GlobalKey<FormBuilderState>();
+
   final commentViewModel = serviceLocator<CommentViewModel>();
 
   @override
@@ -21,7 +27,7 @@ class CommentPage extends StatelessWidget {
     return Scaffold(
       appBar: const EpisodePageAppBar(),
       body: FutureBuilder<List<Comment>>(
-        future: commentViewModel.fetchComments(episodeId),
+        future: commentViewModel.fetchComments(widget.episodeId),
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -117,6 +123,7 @@ class CommentPage extends StatelessWidget {
                           ),
                           child: FormBuilderTextField(
                             name: 'comment',
+                            validator: FormBuilderValidators.required(context),
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
@@ -127,7 +134,16 @@ class CommentPage extends StatelessWidget {
                         width: size.width * 0.025,
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          final state = _key.currentState!..save();
+                          if (state.validate()) {
+                            commentViewModel.postComment(
+                              state.value['comment'] as String,
+                              widget.episodeId,
+                            );
+                          }
+                          setState(() {});
+                        },
                         icon: const Icon(
                           Icons.send,
                           color: Color(0xFFFF758C),
