@@ -19,61 +19,16 @@ class EpisodeViewBody extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        episodeImage(),
-        episodeTitle(),
-        episodeDescription(),
+        EpisodeImage(
+          width: size.width,
+          height: size.height * 0.4,
+          imagePath: showDetails.imagePath,
+        ),
+        EpisodeTitle(text: showDetails.title),
+        EpisodeDescription(text: showDetails.description),
         episodeCount(),
         listView(),
       ],
-    );
-  }
-
-  SizedBox episodeImage() {
-    return SizedBox(
-      width: size.width,
-      height: size.height * 0.4,
-      child: ShaderMask(
-        shaderCallback: (rect) {
-          return const LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.black, Colors.transparent],
-          ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-        },
-        blendMode: BlendMode.dstIn,
-        child: CachedNetworkImage(
-          imageUrl: 'https://api.infinum.academy/${showDetails.imagePath}',
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-
-  Padding episodeTitle() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: Text(
-        showDetails.title,
-        style: const TextStyle(
-          fontSize: 26,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-
-  Padding episodeDescription() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 25,
-      ),
-      child: Text(
-        showDetails.description,
-        style: const TextStyle(
-          fontSize: 14,
-        ),
-      ),
     );
   }
 
@@ -95,10 +50,102 @@ class EpisodeViewBody extends StatelessWidget {
           horizontal: 25,
         ),
         child: ListView.builder(
+          padding: EdgeInsets.zero,
           itemCount: showDetails.episodes.length,
           itemBuilder: (ctx, i) {
             final episode = showDetails.episodes[i];
             return EpisodeListItem(size: size, episode: episode);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class EpisodeDescription extends StatelessWidget {
+  const EpisodeDescription({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 25,
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 14,
+        ),
+      ),
+    );
+  }
+}
+
+class EpisodeTitle extends StatelessWidget {
+  const EpisodeTitle({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 26,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+}
+
+class EpisodeImage extends StatelessWidget {
+  const EpisodeImage({
+    Key? key,
+    required this.height,
+    required this.width,
+    required this.imagePath,
+  }) : super(key: key);
+
+  final double height;
+  final double width;
+  final String imagePath;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: ShaderMask(
+        shaderCallback: (rect) {
+          return const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.black, Colors.transparent],
+          ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+        },
+        blendMode: BlendMode.dstIn,
+        child: CachedNetworkImage(
+          imageUrl: 'https://api.infinum.academy/$imagePath',
+          fit: BoxFit.cover,
+          errorWidget: (context, url, dynamic error) {
+            try {
+              return Image.asset('assets/images/error.jpg', fit: BoxFit.cover);
+            } catch (e) {
+              debugPrint(e.toString());
+            }
+            return Container();
           },
         ),
       ),
