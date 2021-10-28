@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tv_shows/business_logic/models/episode.dart';
+import 'package:tv_shows/ui/views/comment/comment_page.dart';
 import 'package:tv_shows/ui/widgets/show_detail/episode_app_bar.dart';
 import 'package:tv_shows/ui/widgets/show_detail/episode_view_body.dart';
 
@@ -43,7 +44,15 @@ class EpisodeDetailPage extends StatelessWidget {
               child: SizedBox(
                 width: size.width * 0.4,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<CommentPage>(
+                        builder: (ctx) => CommentPage(
+                          episodeId: episode.episodeId,
+                        ),
+                      ),
+                    );
+                  },
                   child: Row(
                     children: const [
                       Icon(
