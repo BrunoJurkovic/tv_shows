@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tv_shows/business_logic/models/episode.dart';
+import 'package:tv_shows/ui/views/episode_detail/episode_detail_page.dart';
 import 'package:tv_shows/ui/widgets/show_detail/episode_detail.dart';
 import 'package:tv_shows/ui/widgets/show_detail/episode_number.dart';
 import 'package:tv_shows/ui/widgets/show_detail/episode_title.dart';
@@ -25,7 +26,15 @@ class EpisodeListItem extends StatelessWidget {
         children: [
           EpisodeNumberText(size: size, episode: episode),
           EpisodeTitleText(size: size, episode: episode),
-          EpisodeDetailButton(onPressed: () {}),
+          EpisodeDetailButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<EpisodeDetailPage>(
+                  builder: (ctx) => EpisodeDetailPage(episode: episode),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
