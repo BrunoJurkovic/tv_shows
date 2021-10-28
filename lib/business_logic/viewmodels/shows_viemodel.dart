@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tv_shows/business_logic/models/show.dart';
+import 'package:tv_shows/business_logic/models/show_details.dart';
 import 'package:tv_shows/services/shows/shows_service.dart';
 
 class ShowsViewModel extends ChangeNotifier {
@@ -9,10 +10,11 @@ class ShowsViewModel extends ChangeNotifier {
 
   Future<List<Show>> fetchShows() async {
     final response = await showsService.getShows();
-    final output = <Show>[];
-    for (final show in response) {
-      output.add(show);
-    }
-    return output;
+    return response;
+  }
+
+  Future<ShowDetails> fetchShowDetails(String id) async {
+    final response = await showsService.getShowDetails(id);
+    return response;
   }
 }
