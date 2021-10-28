@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:tv_shows/business_logic/models/comment.dart';
 import 'package:tv_shows/business_logic/viewmodels/comment_viewmodel.dart';
 import 'package:tv_shows/services/service_locator.dart';
 import 'package:tv_shows/ui/widgets/show_detail/episode_app_bar.dart';
@@ -19,17 +20,74 @@ class CommentPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: const EpisodePageAppBar(),
-      body: FutureBuilder(
+      body: FutureBuilder<List<Comment>>(
+        future: commentViewModel.fetchComments(episodeId),
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
+          final comments = snapshot.data!;
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Expanded(child: SizedBox()),
-              EmptyComments(size: size),
-              const Expanded(child: SizedBox()),
+              if (comments.isEmpty) const Expanded(child: SizedBox()),
+              if (comments.isEmpty) EmptyComments(size: size),
+              if (comments.isNotEmpty)
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: comments.length,
+                    itemBuilder: (ctx, i) {
+                      return Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: size.width * 0.1,
+                                  height: size.height * 0.05,
+                                  child: Image.asset(
+                                    'assets/images/user.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.025,
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      comments[i].email,
+                                      style: const TextStyle(
+                                        color: Color(0xFFFF758C),
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: size.height * 0.02,
+                                    ),
+                                    Text(
+                                      comments[i].text,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Divider(
+                              color: Colors.grey.withOpacity(0.75),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              if (comments.isEmpty) const Expanded(child: SizedBox()),
               const Align(
                 alignment: Alignment.bottomCenter,
                 child: Divider(),

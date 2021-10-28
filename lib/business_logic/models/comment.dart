@@ -8,8 +8,8 @@ class Comment {
 
   factory Comment.fromMap(Map<String, dynamic> map) {
     return Comment(
-      id: map['id'] as String,
-      email: map['email'] as String,
+      id: map['_id'] as String,
+      email: map['userEmail'] as String,
       text: map['text'] as String,
       episodeId: map['episodeId'] as String,
     );
