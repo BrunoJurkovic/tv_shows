@@ -3,10 +3,13 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tv_shows/business_logic/viewmodels/comment_viewmodel.dart';
 import 'package:tv_shows/business_logic/viewmodels/login_viewmodel.dart';
 import 'package:tv_shows/business_logic/viewmodels/shows_viemodel.dart';
 import 'package:tv_shows/services/auth/auth.dart';
 import 'package:tv_shows/services/auth/auth_impl.dart';
+import 'package:tv_shows/services/comment/comment_service.dart';
+import 'package:tv_shows/services/comment/comment_service_impl.dart';
 import 'package:tv_shows/services/http/http_service.dart';
 import 'package:tv_shows/services/http/http_service_impl.dart';
 import 'package:tv_shows/services/shows/shows_service.dart';
@@ -55,6 +58,16 @@ Future<void> setUpLocator() async {
   serviceLocator.registerLazySingleton<ShowsViewModel>(
     () => ShowsViewModel(
       showsService: serviceLocator(),
+    ),
+  );
+  serviceLocator.registerLazySingleton<CommentViewModel>(
+    () => CommentViewModel(
+      commentService: serviceLocator(),
+    ),
+  );
+  serviceLocator.registerLazySingleton<CommentService>(
+    () => CommentServiceImpl(
+      httpService: serviceLocator(),
     ),
   );
 }
