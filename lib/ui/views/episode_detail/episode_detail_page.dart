@@ -19,7 +19,7 @@ class EpisodeDetailPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute<AddEpisodePage>(
-            builder: (ctx) => const AddEpisodePage(),
+            builder: (ctx) => AddEpisodePage(),
           ),
         ),
       ),

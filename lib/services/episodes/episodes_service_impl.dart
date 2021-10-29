@@ -37,9 +37,9 @@ class EpisodeServiceImpl implements EpisodeService {
     required String description,
     required String episodeNumber,
     required String season,
+    required String mediaId,
   }) async {
     try {
-      final mediaId = await _uploadImage();
       await httpService.post(
         request: AddEpisodeRequest(
           showId: showId,
@@ -55,9 +55,10 @@ class EpisodeServiceImpl implements EpisodeService {
     }
   }
 
-  Future<String> _uploadImage() async {
+  @override
+  Future<String> uploadImage() async {
     final formData = await imagePickerService.getFormDataFromImage();
-    final response = await httpService.post(
+    final response = await httpService.postFormData(
       request: MediaRequest(formData),
     ) as Map<String, dynamic>;
     final result = MediaResponse.fromMap(response);

@@ -7,7 +7,7 @@ class MediaResponse {
   factory MediaResponse.fromMap(Map<String, dynamic> map) {
     return MediaResponse(
       // ignore: avoid_dynamic_calls
-      mediaId: map['data']['mediaId'] as String,
+      mediaId: map['data']['_id'] as String,
     );
   }
 

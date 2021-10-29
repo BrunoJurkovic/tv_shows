@@ -12,6 +12,7 @@ class EpisodeViewModel extends ChangeNotifier {
     required String description,
     required String episodeNumber,
     required String season,
+    required String mediaId,
   }) async {
     try {
       await episodeService.uploadEpisode(
@@ -20,7 +21,17 @@ class EpisodeViewModel extends ChangeNotifier {
         description: description,
         episodeNumber: episodeNumber,
         season: season,
+        mediaId: mediaId,
       );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> uploadImage() async {
+    try {
+      final response = await episodeService.uploadImage();
+      return response;
     } catch (e) {
       rethrow;
     }

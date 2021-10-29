@@ -15,7 +15,10 @@ class ImagePickerImpl implements ImagePickerService {
     final fileName = uuid.v1();
     final formData = FormData.fromMap(
       <String, dynamic>{
-        'file': await MultipartFile.fromFile(imagePath, filename: fileName),
+        'file': await MultipartFile.fromFile(
+          imagePath,
+          filename: '$fileName.jpg',
+        ),
       },
     );
     return formData;
