@@ -21,9 +21,8 @@ class MediaRequest extends BaseHttpPostRequest {
 
   @override
   Map<String, dynamic> toMap() {
-    // ignore: unnecessary_cast
-    return {
+    return <String, dynamic>{
       'file': formData,
-    } as Map<String, dynamic>;
+    };
   }
 }
