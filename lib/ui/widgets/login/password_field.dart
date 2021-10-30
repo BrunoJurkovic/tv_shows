@@ -24,15 +24,15 @@ class _PasswordFieldState extends State<PasswordField> {
         FormBuilderValidators.minLength(context, 5),
         FormBuilderValidators.required(context),
       ]),
-      decoration: passwordInputDecoration(),
+      decoration: passwordInputDecoration(context),
     );
   }
 
-  InputDecoration passwordInputDecoration() {
+  InputDecoration passwordInputDecoration(BuildContext context) {
     return InputDecoration(
       hintText: 'Password',
       labelText: 'Password',
-      focusColor: const Color(0xFFFF758C),
+      focusColor: Theme.of(context).colorScheme.secondary,
       border: const UnderlineInputBorder(
         borderSide: BorderSide(
           width: 0.1,
@@ -46,7 +46,7 @@ class _PasswordFieldState extends State<PasswordField> {
         },
         icon: Icon(
           isVisible ? Icons.remove_red_eye : Icons.remove_red_eye_outlined,
-          color: const Color(0xFFFF758C),
+          color: Theme.of(context).colorScheme.secondary,
         ),
       ),
     );

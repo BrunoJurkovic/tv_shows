@@ -19,9 +19,9 @@ class EpisodeNumberText extends StatelessWidget {
         width: size.width * 0.2,
         child: Text(
           'S${episode.season} Ep${episode.episodeNumber}',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 18,
-            color: Color(0xFFFF758C),
+            color: Theme.of(context).colorScheme.secondary,
           ),
         ),
       ),

@@ -31,8 +31,8 @@ class EpisodeDetailPage extends StatelessWidget {
             ),
             child: Text(
               'S${episode.season} Ep${episode.episodeNumber}',
-              style: const TextStyle(
-                color: Color(0xFFFF758C),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
                 fontSize: 16,
               ),
             ),

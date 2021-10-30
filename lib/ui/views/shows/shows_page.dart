@@ -1,12 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tv_shows/business_logic/models/show.dart';
 import 'package:tv_shows/business_logic/viewmodels/login_viewmodel.dart';
 import 'package:tv_shows/business_logic/viewmodels/shows_viemodel.dart';
 import 'package:tv_shows/services/service_locator.dart';
 import 'package:tv_shows/ui/views/login/login_page.dart';
-import 'package:tv_shows/ui/views/show_detail/show_detail_page.dart';
 import 'package:tv_shows/ui/widgets/shows/app_bar.dart';
+import 'package:tv_shows/ui/widgets/shows/shows_list.dart';
 
 class ShowsPage extends StatefulWidget {
   const ShowsPage({Key? key}) : super(key: key);
@@ -42,61 +41,14 @@ class _ShowsPageState extends State<ShowsPage> {
           );
         },
       ),
-      body: FutureBuilder(
+      body: FutureBuilder<List<Show>>(
           future: _showsViewModel.fetchShows(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Container();
             }
-            final shows = snapshot.data! as List<Show>;
-            return ListView.builder(
-                itemCount: shows.length,
-                itemBuilder: (ctx, i) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute<ShowDetailPage>(
-                          builder: (_) {
-                            return ShowDetailPage(id: shows[i].id);
-                          },
-                        ),
-                      );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: size.height * 0.15,
-                            width: size.width * 0.25,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(5),
-                              child: CachedNetworkImage(
-                                imageUrl:
-                                    'https://api.infinum.academy/${shows[i].imageUrl}',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 10,
-                              horizontal: 15,
-                            ),
-                            child: Text(
-                              shows[i].title,
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                });
+            final shows = snapshot.data!;
+            return ShowsList(shows: shows, size: size);
           }),
     );
   }

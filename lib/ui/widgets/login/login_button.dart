@@ -12,7 +12,7 @@ class LoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      style: buttonStyle(),
+      style: buttonStyle(context),
       child: buttonText(),
     );
   }
@@ -24,11 +24,11 @@ class LoginButton extends StatelessWidget {
     );
   }
 
-  ButtonStyle buttonStyle() {
+  ButtonStyle buttonStyle(BuildContext context) {
     return ButtonStyle(
       alignment: Alignment.center,
       backgroundColor: MaterialStateProperty.all<Color>(
-        const Color(0xFFFF758C),
+        Theme.of(context).colorScheme.secondary,
       ),
     );
   }
