@@ -27,15 +27,16 @@ class _ShowDetailPageState extends State<ShowDetailPage> {
       extendBodyBehindAppBar: true,
       appBar: const EpisodePageAppBar(),
       floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add, color: Colors.white),
-          onPressed: () async {
-            await Navigator.of(context).push(
-              MaterialPageRoute<AddEpisodePage>(
-                builder: (ctx) => AddEpisodePage(id: widget.id),
-              ),
-            );
-            setState(() {});
-          }),
+        child: const Icon(Icons.add, color: Colors.white),
+        onPressed: () async {
+          await Navigator.of(context).push(
+            MaterialPageRoute<AddEpisodePage>(
+              builder: (ctx) => AddEpisodePage(id: widget.id),
+            ),
+          );
+          setState(() {});
+        },
+      ),
       body: FutureBuilder<ShowDetails>(
         future: _showViewModel.fetchShowDetails(widget.id),
         builder: (ctx, snapshot) {
