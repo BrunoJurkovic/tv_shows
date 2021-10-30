@@ -14,6 +14,8 @@ import 'package:tv_shows/services/comment/comment_service.dart';
 import 'package:tv_shows/services/comment/comment_service_impl.dart';
 import 'package:tv_shows/services/episodes/episodes_service.dart';
 import 'package:tv_shows/services/episodes/episodes_service_impl.dart';
+import 'package:tv_shows/services/hot_storage/hot_storage.dart';
+import 'package:tv_shows/services/hot_storage/hot_storage_impl.dart';
 import 'package:tv_shows/services/http/http_service.dart';
 import 'package:tv_shows/services/http/http_service_impl.dart';
 import 'package:tv_shows/services/image_picker/imace_picker_impl.dart';
@@ -40,6 +42,7 @@ Future<void> setUpLocator() async {
     () => DioHttpService(
       serviceLocator(),
       serviceLocator(),
+      serviceLocator(),
     ),
   );
   serviceLocator.registerLazySingleton<Dio>(
@@ -47,9 +50,13 @@ Future<void> setUpLocator() async {
   );
   serviceLocator.registerLazySingleton<AuthenticationService>(
     () => AuthenticationServiceImpl(
+      hotStorageService: serviceLocator(),
       storageService: serviceLocator(),
       httpService: serviceLocator(),
     ),
+  );
+  serviceLocator.registerLazySingleton<HotStorageService>(
+    () => HotStorageServiceImpl(),
   );
   serviceLocator.registerLazySingleton<LoginViewModel>(
     () => LoginViewModel(

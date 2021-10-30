@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:tv_shows/business_logic/exceptions/exceptions.dart';
 import 'package:tv_shows/services/auth/auth.dart';
 import 'package:tv_shows/services/storage/storage_service.dart';
 
@@ -39,7 +40,9 @@ class LoginViewModel extends ChangeNotifier {
         _loginStatus = LoginStatus.authenticated;
         notifyListeners();
       } else {
-        throw Exception();
+        _loginStatus = LoginStatus.unauthenticated;
+        notifyListeners();
+        throw HttpException();
       }
     } catch (e) {
       rethrow;

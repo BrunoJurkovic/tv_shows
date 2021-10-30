@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:tv_shows/business_logic/exceptions/exceptions.dart';
 import 'package:tv_shows/business_logic/utils/media_utils.dart';
+import 'package:tv_shows/services/hot_storage/hot_storage.dart';
 import 'package:tv_shows/services/http/http_service.dart';
 import 'package:tv_shows/services/storage/storage_service.dart';
 
@@ -10,7 +11,8 @@ import 'package:tv_shows/services/storage/storage_service.dart';
 const BASE_URL = 'https://api.infinum.academy/';
 
 class DioHttpService extends BaseHttpService {
-  DioHttpService(this.dio, this.storageService, {String baseUrl = BASE_URL}) {
+  DioHttpService(this.dio, this.storageService, this.hotStorageService,
+      {String baseUrl = BASE_URL}) {
     dio.options.baseUrl = baseUrl;
     dio.options.connectTimeout = 200000; // 5s
     dio.options.receiveTimeout = 500000;
@@ -37,14 +39,13 @@ class DioHttpService extends BaseHttpService {
 
   final Dio dio;
   final StorageService storageService;
+  final HotStorageService hotStorageService;
 
   String? get _token {
-    try {
-      final response = storageService.getToken();
-      return response;
-    } catch (e) {
-      debugPrint(e.toString());
+    if (storageService.getToken() != '') {
+      return storageService.getToken();
     }
+    return hotStorageService.token;
   }
 
   @override
@@ -61,11 +62,15 @@ class DioHttpService extends BaseHttpService {
     final options = Options(
       contentType: Headers.jsonContentType,
     );
-    final response = await dio.get<dynamic>(
-      request.endpoint,
-      options: options,
-    );
-    return response.data;
+    try {
+      final response = await dio.get<dynamic>(
+        request.endpoint,
+        options: options,
+      );
+      return response.data;
+    } catch (e) {
+      throw HttpException();
+    }
   }
 
   @override
@@ -84,9 +89,9 @@ class DioHttpService extends BaseHttpService {
       );
       return jsonDecode(response.data!);
     } on DioError {
-      rethrow;
+      throw HttpException();
     } catch (e) {
-      throw Exception();
+      throw HttpException();
     }
   }
 
@@ -103,7 +108,7 @@ class DioHttpService extends BaseHttpService {
     } on DioError {
       rethrow;
     } catch (e) {
-      throw Exception();
+      throw HttpException();
     }
   }
 }

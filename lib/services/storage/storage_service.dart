@@ -4,7 +4,5 @@ const REMEMBER_USER = 'REMEMBER_USER';
 
 abstract class StorageService {
   Future<void> updateToken(String token);
-  Future<void> updateRememberUser(bool rememberUser);
   String getToken();
-  bool rememberUser();
 }
