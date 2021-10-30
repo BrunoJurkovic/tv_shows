@@ -1,17 +1,20 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:dio/dio.dart';
 import 'package:tv_shows/services/http/http_service.dart';
 
 class MediaResponse {
-  const MediaResponse({required this.mediaId});
+  const MediaResponse({required this.mediaId, required this.imagePath});
 
   factory MediaResponse.fromMap(Map<String, dynamic> map) {
     return MediaResponse(
-      // ignore: avoid_dynamic_calls
       mediaId: map['data']['_id'] as String,
+      imagePath: map['data']['path'] as String,
     );
   }
 
   final String mediaId;
+  final String imagePath;
 }
 
 class MediaRequest extends BaseHttpPostRequest {

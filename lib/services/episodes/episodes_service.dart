@@ -1,8 +1,9 @@
 import 'package:tv_shows/business_logic/models/episode.dart';
+import 'package:tv_shows/business_logic/models/image_data.dart';
 
 abstract class EpisodeService {
   Future<Episode> getEpisodeById(String id);
-  Future<String> uploadImage();
+  Future<ImageData> uploadImage();
   Future<void> uploadEpisode(
       {required String showId,
       required String title,

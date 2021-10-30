@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tv_shows/business_logic/models/episode.dart';
-import 'package:tv_shows/ui/views/add_episode/add_episode_page.dart';
 import 'package:tv_shows/ui/views/comment/comment_page.dart';
 import 'package:tv_shows/ui/widgets/show_detail/episode_app_bar.dart';
 import 'package:tv_shows/ui/widgets/show_detail/episode_view_body.dart';
@@ -16,13 +15,6 @@ class EpisodeDetailPage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: const EpisodePageAppBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute<AddEpisodePage>(
-            builder: (ctx) => AddEpisodePage(),
-          ),
-        ),
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

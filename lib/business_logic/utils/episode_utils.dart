@@ -75,7 +75,7 @@ class AddEpisodeRequest extends BaseHttpPostRequest {
     required this.description,
     required this.episodeNumber,
     required this.season,
-  }) : super(endpoint: '/api/episode');
+  }) : super(endpoint: '/api/episodes');
 
   final String showId;
   final String mediaId;
