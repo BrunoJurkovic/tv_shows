@@ -17,16 +17,16 @@ class EmailField extends StatelessWidget {
         FormBuilderValidators.email(context),
         FormBuilderValidators.required(context),
       ]),
-      decoration: emailDecoration(),
+      decoration: emailDecoration(context),
     );
   }
 
-  InputDecoration emailDecoration() {
-    return const InputDecoration(
+  InputDecoration emailDecoration(BuildContext context) {
+    return InputDecoration(
       hintText: 'Email',
       labelText: 'Email',
-      focusColor: Color(0xFFFF758C),
-      border: UnderlineInputBorder(
+      focusColor: Theme.of(context).colorScheme.secondary,
+      border: const UnderlineInputBorder(
         borderSide: BorderSide(
           width: 0.1,
         ),

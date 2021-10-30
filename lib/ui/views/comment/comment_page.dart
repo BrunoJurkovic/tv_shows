@@ -66,8 +66,10 @@ class _CommentPageState extends State<CommentPage> {
                                   children: [
                                     Text(
                                       comments[i].email,
-                                      style: const TextStyle(
-                                        color: Color(0xFFFF758C),
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
                                         fontSize: 18,
                                       ),
                                     ),
@@ -144,9 +146,9 @@ class _CommentPageState extends State<CommentPage> {
                           }
                           setState(() {});
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.send,
-                          color: Color(0xFFFF758C),
+                          color: Theme.of(context).colorScheme.secondary,
                           size: 24,
                         ),
                       ),

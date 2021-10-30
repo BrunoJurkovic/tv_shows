@@ -10,7 +10,7 @@ class RememberUserCheckbox extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormBuilderCheckbox(
       name: 'remember',
-      activeColor: const Color(0xFFFF758C),
+      activeColor: Theme.of(context).colorScheme.secondary,
       title: const Text('Remember me'),
       initialValue: false,
     );
