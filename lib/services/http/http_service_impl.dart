@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:tv_shows/business_logic/utils/media_utils.dart';
 import 'package:tv_shows/services/http/http_service.dart';
 import 'package:tv_shows/services/storage/storage_service.dart';
 
@@ -78,12 +79,29 @@ class DioHttpService extends BaseHttpService {
     try {
       final response = await dio.post<String>(
         request.endpoint,
-        data: jsonEncode(map),
+        data: map,
         options: options,
       );
       return jsonDecode(response.data!);
     } on DioError {
-      throw Exception('Invalid Password');
+      rethrow;
+    } catch (e) {
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<dynamic> postFormData({
+    required MediaRequest request,
+  }) async {
+    try {
+      final response = await dio.post<String>(
+        request.endpoint,
+        data: request.formData,
+      );
+      return jsonDecode(response.data!);
+    } on DioError {
+      rethrow;
     } catch (e) {
       throw Exception();
     }

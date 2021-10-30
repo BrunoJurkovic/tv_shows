@@ -8,7 +8,7 @@ import 'package:tv_shows/services/service_locator.dart';
 import 'package:tv_shows/ui/widgets/show_detail/episode_app_bar.dart';
 
 class CommentPage extends StatefulWidget {
-  CommentPage({Key? key, required this.episodeId}) : super(key: key);
+  const CommentPage({Key? key, required this.episodeId}) : super(key: key);
 
   final String episodeId;
 

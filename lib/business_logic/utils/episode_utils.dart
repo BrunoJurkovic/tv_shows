@@ -54,3 +54,45 @@ class EpisodeRequest extends BaseHttpGetRequest {
       : super(endpoint: '/api/shows/episodes/$episodeId');
   final String episodeId;
 }
+
+class AddEpisodeResponse {
+  const AddEpisodeResponse({required this.mediaId});
+
+  factory AddEpisodeResponse.fromMap(Map<String, dynamic> map) {
+    return AddEpisodeResponse(
+      mediaId: map['data']['mediaId'] as String,
+    );
+  }
+
+  final String mediaId;
+}
+
+class AddEpisodeRequest extends BaseHttpPostRequest {
+  const AddEpisodeRequest({
+    required this.showId,
+    required this.mediaId,
+    required this.title,
+    required this.description,
+    required this.episodeNumber,
+    required this.season,
+  }) : super(endpoint: '/api/episodes');
+
+  final String showId;
+  final String mediaId;
+  final String title;
+  final String description;
+  final String episodeNumber;
+  final String season;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'showId': showId,
+      'mediaId': mediaId,
+      'title': title,
+      'description': description,
+      'episodeNumber': episodeNumber,
+      'season': season,
+    };
+  }
+}

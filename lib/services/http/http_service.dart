@@ -1,3 +1,5 @@
+import 'package:tv_shows/business_logic/utils/media_utils.dart';
+
 abstract class BaseHttpPostRequest {
   const BaseHttpPostRequest({
     required this.endpoint,
@@ -30,5 +32,8 @@ abstract class BaseHttpService {
   });
   Future delete({
     required BaseHttpDeleteRequest request,
+  });
+  Future<dynamic> postFormData({
+    required MediaRequest request,
   });
 }
