@@ -1,3 +1,4 @@
+import 'package:dialogs/dialogs/message_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tv_shows/business_logic/viewmodels/login_viewmodel.dart';
@@ -62,19 +63,27 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState!.validate()) {
       final val = _formKey.currentState!.value;
       debugPrint(_formKey.currentState!.value.toString());
-      await _loginViewModel.login(
-        val['email'] as String,
-        val['password'] as String,
-        rememberLogin: val['remember'] as bool,
-      );
-      // ignore: use_build_context_synchronously
-      await Navigator.of(context).pushReplacement(
-        MaterialPageRoute<LoginPage>(
-          builder: (_) {
-            return const ShowsPage();
-          },
-        ),
-      );
+      try {
+        await _loginViewModel.login(
+          val['email'] as String,
+          val['password'] as String,
+          rememberLogin: val['remember'] as bool,
+        );
+        // ignore: use_build_context_synchronously
+        await Navigator.of(context).pushReplacement(
+          MaterialPageRoute<LoginPage>(
+            builder: (_) {
+              return const ShowsPage();
+            },
+          ),
+        );
+      } catch (e) {
+        MessageDialog(
+          title: 'An error has occured',
+          message: 'Please check your login info and your connection.',
+          buttonOkColor: Theme.of(context).colorScheme.secondary,
+        ).show(context);
+      }
     } else {
       debugPrint('error');
     }
