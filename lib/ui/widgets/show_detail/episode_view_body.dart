@@ -137,16 +137,10 @@ class EpisodeImage extends StatelessWidget {
         },
         blendMode: BlendMode.dstIn,
         child: CachedNetworkImage(
-          imageUrl: 'https://api.infinum.academy/$imagePath',
+          imageUrl: imagePath != ''
+              ? 'https://api.infinum.academy/$imagePath'
+              : 'https://via.placeholder.com/600',
           fit: BoxFit.cover,
-          errorWidget: (context, url, dynamic error) {
-            try {
-              return Image.asset('assets/images/error.jpg', fit: BoxFit.cover);
-            } catch (e) {
-              debugPrint(e.toString());
-            }
-            return Container();
-          },
         ),
       ),
     );
