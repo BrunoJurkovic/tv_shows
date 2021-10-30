@@ -5,6 +5,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:tv_shows/business_logic/models/comment.dart';
 import 'package:tv_shows/business_logic/viewmodels/comment_viewmodel.dart';
 import 'package:tv_shows/services/service_locator.dart';
+import 'package:tv_shows/ui/widgets/comment/comment_list.dart';
+import 'package:tv_shows/ui/widgets/comment/empty.dart';
 import 'package:tv_shows/ui/widgets/show_detail/episode_app_bar.dart';
 
 class CommentPage extends StatefulWidget {
@@ -41,60 +43,7 @@ class _CommentPageState extends State<CommentPage> {
               if (comments.isEmpty) const Expanded(child: SizedBox()),
               if (comments.isEmpty) EmptyComments(size: size),
               if (comments.isNotEmpty)
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: comments.length,
-                    itemBuilder: (ctx, i) {
-                      return Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: size.width * 0.1,
-                                  height: size.height * 0.05,
-                                  child: Image.asset(
-                                    'assets/images/user.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: size.width * 0.025,
-                                ),
-                                Column(
-                                  children: [
-                                    Text(
-                                      comments[i].email,
-                                      style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: size.height * 0.02,
-                                    ),
-                                    Text(
-                                      comments[i].text,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Divider(
-                              color: Colors.grey.withOpacity(0.75),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                CommentList(comments: comments, size: size),
               if (comments.isEmpty) const Expanded(child: SizedBox()),
               const Align(
                 alignment: Alignment.bottomCenter,
@@ -159,43 +108,6 @@ class _CommentPageState extends State<CommentPage> {
             ],
           );
         },
-      ),
-    );
-  }
-}
-
-class EmptyComments extends StatelessWidget {
-  const EmptyComments({
-    Key? key,
-    required this.size,
-  }) : super(key: key);
-
-  final Size size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      child: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              width: size.height * 0.15,
-              height: size.height * 0.15,
-              child: Image.asset(
-                'assets/images/empty.png',
-                fit: BoxFit.fill,
-              ),
-            ),
-            SizedBox(
-              width: size.height * 0.3,
-              height: size.height * 0.15,
-              child: const Text(
-                'Sorry, we don’t have comments yet. Be first who will write a review.',
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
