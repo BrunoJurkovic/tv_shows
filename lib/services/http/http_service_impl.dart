@@ -89,7 +89,7 @@ class DioHttpService extends BaseHttpService {
       );
       return jsonDecode(response.data!);
     } on DioError {
-      throw HttpException();
+      throw Exception();
     } catch (e) {
       throw HttpException();
     }
