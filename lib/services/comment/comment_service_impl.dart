@@ -26,7 +26,7 @@ class CommentServiceImpl implements CommentService {
     try {
       await httpService.post(
         request: PostCommentRequest(text, id),
-      ) as Map<String, dynamic>;
+      );
     } catch (e) {
       rethrow;
     }

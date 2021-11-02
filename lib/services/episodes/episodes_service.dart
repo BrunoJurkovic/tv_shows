@@ -1,4 +1,3 @@
-import 'package:tv_shows/business_logic/models/episode.dart';
 import 'package:tv_shows/business_logic/models/image_data.dart';
 
 abstract class EpisodeService {
