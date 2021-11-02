@@ -5,7 +5,7 @@ abstract class BaseHttpPostRequest {
     required this.endpoint,
   });
   final String endpoint;
-  Map<String, dynamic> toMap();
+  Map<String, dynamic>? toMap();
 }
 
 abstract class BaseHttpGetRequest {

@@ -11,7 +11,12 @@ class ImagePickerImpl implements ImagePickerService {
 
   @override
   Future<FormData> getFormDataFromImage() async {
-    final imagePath = await _pickImagePath();
+    String imagePath;
+    try {
+      imagePath = await _pickImagePath();
+    } catch (e) {
+      rethrow;
+    }
     final fileName = uuid.v1();
     final formData = FormData.fromMap(
       <String, dynamic>{

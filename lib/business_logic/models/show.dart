@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Show {
   Show({
     required this.id,
@@ -21,29 +19,4 @@ class Show {
   final String title;
   final String imageUrl;
   final int likeCount;
-
-  Show copyWith({
-    String? id,
-    String? title,
-    String? imageUrl,
-    int? likeCount,
-  }) {
-    return Show(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      imageUrl: imageUrl ?? this.imageUrl,
-      likeCount: likeCount ?? this.likeCount,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'title': title,
-      'imageUrl': imageUrl,
-      'likeCount': likeCount,
-    };
-  }
-
-  String toJson() => json.encode(toMap());
 }

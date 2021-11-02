@@ -61,12 +61,8 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   Future<void> logout() async {
-    try {
-      await authenticationService.logout();
-      _loginStatus = LoginStatus.unauthenticated;
-      notifyListeners();
-    } catch (e) {
-      debugPrint(e.toString());
-    }
+    await authenticationService.logout();
+    _loginStatus = LoginStatus.unauthenticated;
+    notifyListeners();
   }
 }
