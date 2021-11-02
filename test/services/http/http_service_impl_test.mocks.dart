@@ -2,6 +2,8 @@
 // in tv_shows/test/services/http/http_service_impl_test.dart.
 // Do not manually edit this file.
 
+// ignore_for_file: unnecessary_overrides, unnecessary_raw_strings
+
 import 'dart:async' as _i8;
 
 import 'package:dio/src/adapter.dart' as _i3;

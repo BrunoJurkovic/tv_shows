@@ -2,6 +2,8 @@
 // in tv_shows/test/services/shows/shows_service_impl_test.dart.
 // Do not manually edit this file.
 
+// ignore_for_file: unnecessary_overrides
+
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:tv_shows/business_logic/utils/episode_utils.dart' as _i3;
 import 'package:tv_shows/business_logic/utils/shows_utils.dart' as _i2;

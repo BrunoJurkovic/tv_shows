@@ -9,7 +9,6 @@ import 'package:tv_shows/services/shows/shows_service.dart';
 import 'package:tv_shows/services/shows/shows_service_impl.dart';
 
 import '../auth/auth_impl_test.mocks.dart';
-import 'shows_service_impl_test.mocks.dart';
 
 @GenerateMocks([ShowDetailsRequest, AllEpisodesRequest])
 void main() {

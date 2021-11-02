@@ -2,6 +2,8 @@
 // in tv_shows/test/business_logic/viewmodels/shows/shows_viemodel_test.dart.
 // Do not manually edit this file.
 
+// ignore_for_file: unnecessary_overrides
+
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;

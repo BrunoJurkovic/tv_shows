@@ -2,6 +2,8 @@
 // in tv_shows/test/services/image_picker/imace_picker_impl_test.dart.
 // Do not manually edit this file.
 
+// ignore_for_file: unnecessary_overrides
+
 import 'dart:async' as _i4;
 
 import 'package:image_picker/image_picker.dart' as _i3;

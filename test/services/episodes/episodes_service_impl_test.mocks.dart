@@ -2,6 +2,8 @@
 // in tv_shows/test/services/episodes/episodes_service_impl_test.dart.
 // Do not manually edit this file.
 
+// ignore_for_file: unnecessary_overrides
+
 import 'dart:async' as _i4;
 
 import 'package:dio/dio.dart' as _i2;
